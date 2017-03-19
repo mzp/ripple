@@ -1,7 +1,9 @@
+(* define action *)
 module M = Store.Make(struct
   type t =  [`Inc | `Dec]
 end)
 
+(* define store(primitive) *)
 let n = M.number 42 (fun n ->
   function
     | `Inc -> n + 1
@@ -18,11 +20,13 @@ let xs = M.array Json.number [1.;2.] (fun xs ->
     | `Inc -> 0.0 :: xs
     | `Dec -> List.tl xs)
 
+(* compose store(primitive) *)
 let m =
   M.(("str", s) @+ ("n", n) @+ ("value", n) @+ empty)
 
 let m2 =
   M.(("nest", m) @+ empty)
 
+(* use *)
 let _ =
   Js.log (M.jsonify m2)
