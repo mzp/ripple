@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-  entry: "./src/view/index.js",
+  entry: "./src/view/index.jsx",
   devtool: "inline-source-map",
   output: {
     path: "public",

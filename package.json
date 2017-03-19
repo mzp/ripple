@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "bsb && webpack"
   },
   "dependencies": {
     "babel-core": "^6.21.0",
