@@ -1,6 +1,6 @@
 (* define action *)
 module M = Store.Make(struct
-  type t =  [`Inc | `Dec]
+  type t = [`Inc | `Dec]
 end)
 
 (* define store(primitive) *)
@@ -27,10 +27,10 @@ let store =
   in
   M.(("nest", nest) @+ empty)
 
-(* dispatch action *)
-let store =
-  M.dispatch store `Inc
+(* FFI *)
+let inc = `Inc
 
-(* use *)
-let _ =
-  Js.log (M.jsonify store)
+let dec = `Dec
+
+include M
+
