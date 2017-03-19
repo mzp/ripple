@@ -1,6 +1,6 @@
 import React from "react";
 import connect from "./connect";
-import {inc, dec} from "flux";
+import {inc, dec, set} from "flux";
 
 @connect
 export default class extends React.Component {
@@ -13,6 +13,7 @@ export default class extends React.Component {
         <div>
           <button onClick={::this.inc}>+</button>
           <button onClick={::this.dec}>-</button>
+          <button onClick={::this.reset}>0</button>
         </div>
       </div>);
   }
@@ -25,4 +26,7 @@ export default class extends React.Component {
     this.props.dispatch(dec)
   }
 
+  reset() {
+    this.props.dispatch(set(0));
+  }
 }
