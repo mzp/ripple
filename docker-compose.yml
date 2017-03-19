@@ -1,0 +1,8 @@
+version: "2"
+services:
+  js:
+    build:
+      context: ./config/docker
+      dockerfile: Dockerfile.js
+    volumes:
+      - .:/ripple
