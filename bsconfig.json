@@ -1,6 +1,6 @@
 {
   "name" : "ripple",
   "sources" : {
-    "dir" :  "src"
+    "dir" :  "src/flux"
   }
 }
