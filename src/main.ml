@@ -21,12 +21,16 @@ let xs = M.array Json.number [1.;2.] (fun xs ->
     | `Dec -> List.tl xs)
 
 (* compose store(primitive) *)
-let m =
-  M.(("str", s) @+ ("n", n) @+ ("value", n) @+ empty)
+let store =
+  let nest =
+    M.(("str", s) @+ ("n", n) @+ ("value", n) @+ empty)
+  in
+  M.(("nest", nest) @+ empty)
 
-let m2 =
-  M.(("nest", m) @+ empty)
+(* dispatch action *)
+let store =
+  M.dispatch store `Inc
 
 (* use *)
 let _ =
-  Js.log (M.jsonify m2)
+  Js.log (M.jsonify store)

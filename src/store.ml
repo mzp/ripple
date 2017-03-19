@@ -10,6 +10,9 @@ module Make(Action : Action) = struct
   }
   type 'a store = 'a -> ('a -> Action.t -> 'a) -> 'a t
 
+  let dispatch ({ state; reducer} as store) action =
+    { store with state = reducer state action }
+
   let jsonify { state; jsonify } =
     jsonify state
 
