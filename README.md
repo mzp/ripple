@@ -1,4 +1,7 @@
 # :ocean: Ripple
+
+[![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=mzp&repoName=ripple&branch=master&pipelineName=ripple&accountName=mzp&type=cf-1)]( https://g.codefresh.io/repositories/mzp/ripple/builds?filter=trigger:build;branch:master;service:58cf8ee3bfd25a010000e4b3~ripple)
+
 Typed flux framework.
 
 ## :gift: Install
