@@ -3,3 +3,4 @@ lib/
 npm-debug.log
 .merlin
 /index.js
+bundle.js
