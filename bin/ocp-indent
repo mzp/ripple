@@ -1,0 +1,10 @@
+#!/bin/bash
+
+CONTAINER_ID=$(docker ps --filter "ancestor=ripple_js" --format "{{.ID}}" | head -1)
+ARGS="$@"
+
+if [ -n ${CONTAINER_ID} ]; then
+  docker exec -i ${CONTAINER_ID} bash --login -c "ocp-indent ${ARGS}"
+else
+  docker-compose run --rm js ocp-indent "$@"
+fi
