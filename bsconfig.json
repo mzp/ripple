@@ -2,7 +2,7 @@
   "name" : "ripple",
   "version": "0.1.0",
   "sources" : {
-    "dir" :  "src"
+    "dir" :  "src/ripple"
   },
   "generate-merlin" : true
 }
