@@ -1,6 +1,7 @@
 (* define action *)
+type action  = [`Inc | `Dec | `Set of int]
 module M = Store.Make(struct
-  type t = [`Inc | `Dec | `Set of int]
+  type t = action
 end)
 
 (* define store(primitive) *)
@@ -35,7 +36,13 @@ let inc = `Inc
 
 let dec = `Dec
 
+let double_ = `Double
+
 let set n = `Set n
 
 include M
 
+let dispatch store = function
+  | `Double ->
+      M.dispatch (M.dispatch store `Inc) `Inc
+  | #action as x -> M.dispatch store x

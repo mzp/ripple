@@ -1,6 +1,6 @@
 import React from "react";
 import connect from "./connect";
-import {inc, dec, set} from "flux";
+import {double_, inc, dec, set} from "flux";
 
 @connect
 export default class extends React.Component {
@@ -11,11 +11,16 @@ export default class extends React.Component {
         <div>{msg}: {value}</div>
         <div>last action: {str}</div>
         <div>
+          <button onClick={::this.double_}>++</button>
           <button onClick={::this.inc}>+</button>
           <button onClick={::this.dec}>-</button>
           <button onClick={::this.reset}>0</button>
         </div>
       </div>);
+  }
+
+  double_() {
+    this.props.dispatch(double_)
   }
 
   inc() {
