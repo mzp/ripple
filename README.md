@@ -20,6 +20,8 @@ Typed flux framework.
 |:lipstick:         |improve the format/structure of the code|
 |:memo:             |improve document                        |
 |:gift:             |improve example                         |
+|:camel:            |add OCaml library                       |
+|:coffee:           |add Javascript library                  |
 
 ## :copyright: License
 MIT License
