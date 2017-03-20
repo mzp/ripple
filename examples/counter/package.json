@@ -1,0 +1,11 @@
+{
+  "name": "ripple-counter-example",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "bsb"
+  },
+  "dependencies": {
+    "ripple": "file:///ripple"
+  }
+}

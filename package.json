@@ -1,0 +1,9 @@
+{
+  "name": "ripple",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "bsb",
+    "postinstall": "bsb && mkdir lib/ocaml && cp -r lib/bs/src/* lib/ocaml/"
+  }
+}
