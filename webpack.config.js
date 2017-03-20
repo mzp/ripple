@@ -4,8 +4,9 @@ module.exports = {
   entry: "./src/react/index.js",
   devtool: "inline-source-map",
   output: {
-    path: ".",
-    filename: "index.js"
+    filename: "index.js",
+    library: "ripple",
+    libraryTarget: "umd"
   },
   module: {
     rules: [
@@ -14,7 +15,6 @@ module.exports = {
         include: [
           path.resolve(__dirname, "src/react"),
         ],
-        exclude: /node_modules/,
         use: 'babel-loader'
       }
     ]

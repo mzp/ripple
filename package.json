@@ -5,7 +5,7 @@
   "scripts": {
     "build:bs": "bsb",
     "build:js": "webpack",
-    "postinstall": "bsb && mkdir lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/ && webpack"
+    "postinstall": "webpack && bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "dependencies": {
     "babel-core": "^6.21.0",
