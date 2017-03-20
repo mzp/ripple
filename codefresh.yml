@@ -1,0 +1,23 @@
+version: '1.0'
+steps:
+  DockerImage:
+    title: Prepare Docker Image
+    type: build
+    image_name: mzpi/ripple
+    working_directory: .
+    dockerfile: config/docker/Dockerfile.js
+  Build:
+    title: Build script
+    image: '${{DockerImage}}'
+    commands:
+      - npm run build
+    on_success:
+      metadata:
+        set:
+          - '${{DockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{DockerImage.imageId}}':
+              - CF_QUALITY: false
