@@ -3,7 +3,7 @@ module type Action = sig
 end
 
 module Make(Action : Action) = struct
-  module Dispatch = struct
+  module Store = struct
     type 'a t = {
       state : 'a;
       reducer: 'a -> Action.t -> 'a;
@@ -18,10 +18,10 @@ module Make(Action : Action) = struct
   end
 
   module Primitive = struct
-    type 'a t = 'a -> ('a -> Action.t -> 'a) -> 'a Dispatch.t
+    type 'a t = 'a -> ('a -> Action.t -> 'a) -> 'a Store.t
 
     let store jsonify state reducer = {
-      Dispatch.jsonify;
+      Store.jsonify;
       state;
       reducer
     }
@@ -41,7 +41,7 @@ module Make(Action : Action) = struct
 
     let make { state; reducer; dictify } =
       {
-        Dispatch.state;
+        Store.state;
         reducer;
         jsonify = (fun x -> Ripple_json.object_ @@ dictify x)
       }
@@ -53,11 +53,11 @@ module Make(Action : Action) = struct
     }
 
     let (@+) (key, s1) s2 = {
-      state=(s1.Dispatch.state, s2.state);
-      reducer=(fun (x, y) action -> (s1.Dispatch.reducer x action, s2.reducer y action));
+      state=(s1.Store.state, s2.state);
+      reducer=(fun (x, y) action -> (s1.Store.reducer x action, s2.reducer y action));
       dictify=(fun (x, y) -> begin
         let dict = s2.dictify y in
-        let () = Js.Dict.set dict key @@ s1.Dispatch.jsonify x in
+        let () = Js.Dict.set dict key @@ s1.Store.jsonify x in
         dict
       end)
     }
