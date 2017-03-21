@@ -1,0 +1,22 @@
+{
+  "name": "ripple-todo-example",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "bsb && webpack"
+  },
+  "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-function-bind": "^6.8.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "ripple": "file:///ripple",
+    "webpack": "2.2.0"
+  }
+}
