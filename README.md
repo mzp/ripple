@@ -5,7 +5,11 @@
 Typed flux framework.
 
 ## :gift: Install
-:construction:
+
+```
+npm install -g bs-platform
+npm install https://github.com/mzp/ripple.git
+```
 
 ## :star: Usage
 Define reducer/action creator at ML-style.
