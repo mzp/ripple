@@ -10,7 +10,8 @@ steps:
     title: Build script
     image: '${{DockerImage}}'
     commands:
-      - npm run build
+      - npm install
+      - npm run build:js
     on_success:
       metadata:
         set:
