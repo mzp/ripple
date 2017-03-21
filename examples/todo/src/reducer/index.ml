@@ -5,10 +5,9 @@ end)
 
 let store =
   let open M.Object in
-  make @@
+  M.Store.create @@ make @@
     ("todos", M.Primitive.array Todo.jsonify [] Todos.reduce)
     @+ nil
 
 let add n s = `Add (n,s)
 let toggle n = `Toggle n
-include M.Dispatch

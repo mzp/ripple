@@ -3,14 +3,20 @@ module type Action = sig
 end
 
 module Make(Action : Action) : sig
-  module Dispatch : sig
+  module Store : sig
     type 'a t
     val dispatch : Action.t -> 'a t -> 'a t
     val jsonify : 'a t -> Js.Json.t
+
+    val create : 'a t -> <
+      dispatch : Action.t -> 'a t -> 'a t;
+      jsonify : 'a t -> Js.Json.t;
+      store : 'a t
+    > Js.t
   end
 
   module Primitive : sig
-    type 'a t = 'a -> ('a -> Action.t -> 'a) -> 'a Dispatch.t
+    type 'a t = 'a -> ('a -> Action.t -> 'a) -> 'a Store.t
     val number : float t
     val int : int t
     val string : string t
@@ -19,9 +25,9 @@ module Make(Action : Action) : sig
 
   module Object : sig
     type 'a t
-    val make : 'a t -> 'a Dispatch.t
+    val make : 'a t -> 'a Store.t
 
     val nil : unit t
-    val (@+) : (string * 'a Dispatch.t) -> 'b t -> ('a * 'b) t
+    val (@+) : (string * 'a Store.t) -> 'b t -> ('a * 'b) t
   end
 end

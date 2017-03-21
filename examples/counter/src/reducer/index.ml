@@ -17,7 +17,7 @@ let count = M.Primitive.int 0 (fun n ->
 
 let store =
   let open M.Object in
-  make @@
+  M.Store.create @@ make @@
     ("value", value) @+
     ("count", count) @+
     nil
@@ -26,5 +26,3 @@ let store =
 let inc = `Inc
 let dec = `Dec
 let set n = `Set n
-
-include M.Dispatch

@@ -4,9 +4,11 @@ export default class extends React.Component {
   static displayName = "Provider";
 
   static propTypes = {
-    store: React.PropTypes.any.isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    jsonify: React.PropTypes.func.isRequired
+    store: React.PropTypes.shape({
+      store: React.PropTypes.any.isRequired,
+      dispatch: React.PropTypes.func.isRequired,
+      jsonify: React.PropTypes.func.isRequired
+    }).isRequired,
   }
 
   static childContextTypes = {
@@ -23,9 +25,9 @@ export default class extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.store = props.store;
-    this.dispatch = props.dispatch;
-    this.jsonify = props.jsonify;
+    this.store = props.store.store;
+    this.dispatch = props.store.dispatch;
+    this.jsonify = props.store.jsonify;
   }
 
   render() {

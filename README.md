@@ -5,10 +5,55 @@
 Typed flux framework.
 
 ## :gift: Install
-:construction:
+
+```
+npm install -g bs-platform
+npm install https://github.com/mzp/ripple.git
+```
 
 ## :star: Usage
-:construction:
+Define reducer/action creator at ML-style.
+
+```ocaml
+(* define action *)
+module M = Ripple.Store(struct
+  type t = [ `Inc | `Dec ]
+end)
+
+(* define reducer *)
+let value = M.Primitive.int 0 (fun n ->
+  function
+    | `Inc -> n + 1
+    | `Dec -> n - 1)
+
+let store =
+  let open M.Object in
+  M.Store.create @@ make @@
+    ("value", value) @+
+    nil
+```
+
+Connect react components by `@connect`:
+
+```js
+import React from "react";
+import {connect} from "ripple";
+import {inc} from "reducer";
+
+@connect
+export default class extends React.Component {
+  render() {
+    const {value} = this.props;
+    return (<div onClick={::this.inc}>{value}</div>)
+  }
+
+  inc() {
+    this.props.dispatch(inc);
+  }
+}
+```
+
+See more examples at [examples/](https://github.com/mzp/ripple/tree/master/examples).
 
 ## :+1: Commit symbol
 
