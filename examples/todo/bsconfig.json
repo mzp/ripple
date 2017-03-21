@@ -1,0 +1,10 @@
+{
+  "name" : "ripple-example-counter",
+  "version": "0.1.0",
+  "sources" : {
+    "dir" :  "src/reducer"
+  },
+  "bs-dependencies": [
+    "ripple"
+  ]
+}
