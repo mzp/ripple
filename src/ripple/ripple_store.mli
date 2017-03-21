@@ -7,6 +7,12 @@ module Make(Action : Action) : sig
     type 'a t
     val dispatch : Action.t -> 'a t -> 'a t
     val jsonify : 'a t -> Js.Json.t
+
+    val create : 'a t -> <
+      dispatch : Action.t -> 'a t -> 'a t;
+      jsonify : 'a t -> Js.Json.t;
+      store : 'a t
+    > Js.t
   end
 
   module Primitive : sig

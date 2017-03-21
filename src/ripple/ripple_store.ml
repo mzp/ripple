@@ -15,6 +15,10 @@ module Make(Action : Action) = struct
 
     let jsonify { state; jsonify } =
       jsonify state
+
+    let create store = [%bs.obj {
+      store; dispatch; jsonify;
+    }]
   end
 
   module Primitive = struct
