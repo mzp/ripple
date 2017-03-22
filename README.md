@@ -26,6 +26,10 @@ let value = M.Primitive.int 0 (fun n ->
     | `Inc -> n + 1
     | `Dec -> n - 1)
 
+(*
+  compose object like:
+    { "value": 42 }
+*)
 let store =
   let open M.Object in
   M.Store.create @@ make @@
@@ -33,7 +37,25 @@ let store =
     nil
 ```
 
-Connect react components by `@connect`:
+Provide store to all components
+
+```js
+import React from "react";
+import {render} from "react-dom";
+import {store} from "reducer";
+import App from "./components/App";
+
+window.onload = () => {
+  const mountNode = document.getElementById("js");
+
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>, mountNode);
+};
+```
+
+And connect components by `@connect`:
 
 ```js
 import React from "react";
