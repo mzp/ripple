@@ -1,6 +1,13 @@
 (* define action *)
+module Action = struct
+  type t = [
+    | `Inc
+    | `Dec
+    | `Set of int ] [@@deriving variants]
+end
+
 module M = Ripple.Store(struct
-  type t = [ `Inc | `Dec | `Set of int ]
+  type t = Action.t
 end)
 
 (* define reducer *)
@@ -23,6 +30,4 @@ let store =
     nil
 
 (* FFI *)
-let inc = `Inc
-let dec = `Dec
-let set n = `Set n
+include Action
