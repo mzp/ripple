@@ -1,0 +1,11 @@
+#!/bin/sh
+case $1 in
+  (ppx)
+    flag=$(ocamlfind printppx $2 | cut -c 7-)
+    echo ${flag%\"}
+  ;;
+
+  (flag)
+    ocamlfind query $2
+  ;;
+esac
