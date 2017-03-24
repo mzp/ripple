@@ -12,6 +12,7 @@ steps:
     commands:
       - npm install
       - npm run build:js
+      - npm run test
     on_success:
       metadata:
         set:
