@@ -4,10 +4,12 @@ type t = {
   complete : bool
 }
 
-type action = [
+module Action = struct
+  type t = [
   | `Add of int * string
   | `Toggle of int
-]
+] [@@deriving variants]
+end
 
 let empty = {
   id = ~-1;

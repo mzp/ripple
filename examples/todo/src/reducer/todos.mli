@@ -1,5 +1,3 @@
 type t = Todo.t list
 
-type action = Todo.action
-
-val reduce : t -> action -> t
+val reduce : t -> Todo.Action.t -> t
