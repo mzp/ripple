@@ -1,7 +1,5 @@
 type t = Todo.t list
 
-type action = Todo.action
-
 let reduce state action =
   match action with
     | `Add _ ->

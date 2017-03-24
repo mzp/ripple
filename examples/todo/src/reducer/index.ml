@@ -1,6 +1,6 @@
 (* define action *)
 module M = Ripple.Store(struct
-  type t = Todo.action
+  type t = Todo.Action.t
 end)
 
 let store =
@@ -9,5 +9,4 @@ let store =
     ("todos", M.Primitive.array Todo.jsonify [] Todos.reduce)
     @+ nil
 
-let add n s = `Add (n,s)
-let toggle n = `Toggle n
+include Todo.Action

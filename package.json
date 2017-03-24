@@ -2,6 +2,9 @@
   "name": "ripple",
   "version": "0.1.0",
   "license": "MIT",
+  "bin": {
+    "ppx": "./bin/ppx"
+  },
   "scripts": {
     "build:bs": "bsb",
     "build:js": "webpack",
