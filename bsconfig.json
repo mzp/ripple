@@ -1,8 +1,10 @@
 {
   "name" : "ripple",
   "version": "0.1.0",
-  "sources" : {
-    "dir" :  "src/ripple"
-  },
+  "sources" : [
+    { "dir" :  "src/ripple" },
+    { "dir" :  "test" },
+    { "dir" :  "test/ripple" }
+  ],
   "generate-merlin" : true
 }
