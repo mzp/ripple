@@ -11,7 +11,9 @@ steps:
     image: '${{DockerImage}}'
     commands:
       - npm install
+      - npm link bs-platform
       - npm run build:js
+      - npm run test
     on_success:
       metadata:
         set:
