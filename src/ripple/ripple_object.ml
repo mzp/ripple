@@ -26,3 +26,5 @@ let (@+) (key, s1) s2 = {
         dict
       end)
 }
+
+let (+>) x y = (x, y)

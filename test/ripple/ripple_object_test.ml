@@ -15,8 +15,8 @@ let history () = Ripple_array.make [] Ripple_json.string (fun xs ->
 
 let store =
   make @@ begin
-    ("value", counter ()) @+
-    ("history", history ()) @+
+    "value" +> counter () @+
+    "history" +> history () @+
     nil
   end
 
