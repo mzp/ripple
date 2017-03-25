@@ -3,6 +3,7 @@ type ('a, 'b) t = {
   state : 'b;
   jsonify: 'b -> Js.Json.t
 }
+type js = unit
 
 let dispatch action ({ state; reducer} as store) =
   { store with state = reducer state action }
@@ -13,6 +14,6 @@ let jsonify { state; jsonify } =
 let value { state } =
   state
 
-let create store = [%bs.obj {
+let to_js store = Obj.magic [%bs.obj {
   store; dispatch; jsonify
 }]

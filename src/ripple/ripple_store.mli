@@ -3,9 +3,10 @@ type ('a, 'b) t = {
   state : 'b;
   jsonify: 'b -> Js.Json.t
 }
+type js
 
 val dispatch : 'a -> ('a, 'b) t -> ('a, 'b) t
 val jsonify : ('a, 'b) t -> Js.Json.t
 val value : ('a, 'b) t -> 'b
 
-val create : ('a, 'b) t -> < dispatch : 'a -> ('a, 'b) t -> ('a, 'b) t; jsonify : ('a, 'b) t -> Js.Json.t; store : ('a, 'b) t > Js.t
+val to_js: ('a, 'b) t -> js Js.t
