@@ -1,12 +1,5 @@
-(* define action *)
-module M = Ripple.Store(struct
-  type t = Todo.Action.t
-end)
+(* expor all actions *)
+include Action
 
-let store =
-  let open M.Object in
-  M.Store.create @@ make @@
-    ("todos", M.Primitive.array Todo.jsonify [] Todos.reduce)
-    @+ nil
-
-include Todo.Action
+(* export store *)
+let store = Ripple.Store.to_js (Store.store ())

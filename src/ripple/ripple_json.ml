@@ -7,3 +7,5 @@ external stringArray : string array -> Js.Json.t = "%identity"
 external numberArray : float array -> Js.Json.t = "%identity"
 external booleanArray : Js.boolean array -> Js.Json.t = "%identity"
 external objectArray : Js.Json.t Js.Dict.t array -> Js.Json.t = "%identity"
+
+let int n = number (float_of_int n)

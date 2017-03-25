@@ -1,33 +1,12 @@
-module type Action = sig
-  type t
-end
+type ('a, 'b) t = {
+  reducer: 'b -> 'a -> 'b;
+  state : 'b;
+  jsonify: 'b -> Js.Json.t
+}
+type js
 
-module Make(Action : Action) : sig
-  module Store : sig
-    type 'a t
-    val dispatch : Action.t -> 'a t -> 'a t
-    val jsonify : 'a t -> Js.Json.t
+val dispatch : 'a -> ('a, 'b) t -> ('a, 'b) t
+val jsonify : ('a, 'b) t -> Js.Json.t
+val value : ('a, 'b) t -> 'b
 
-    val create : 'a t -> <
-      dispatch : Action.t -> 'a t -> 'a t;
-      jsonify : 'a t -> Js.Json.t;
-      store : 'a t
-    > Js.t
-  end
-
-  module Primitive : sig
-    type 'a t = 'a -> ('a -> Action.t -> 'a) -> 'a Store.t
-    val number : float t
-    val int : int t
-    val string : string t
-    val array : ('a -> Js.Json.t) -> 'a list t
-  end
-
-  module Object : sig
-    type 'a t
-    val make : 'a t -> 'a Store.t
-
-    val nil : unit t
-    val (@+) : (string * 'a Store.t) -> 'b t -> ('a * 'b) t
-  end
-end
+val to_js: ('a, 'b) t -> js Js.t
