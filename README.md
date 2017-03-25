@@ -21,19 +21,19 @@ module M = Ripple.Store(struct
 end)
 
 (* define reducer *)
-let value = M.Primitive.int 0 (fun n ->
-  function
-    | `Inc -> n + 1
-    | `Dec -> n - 1)
+let value () = Ripple.Primitive.int 0 begin fun n -> function
+  | `Inc -> n + 1
+  | `Dec -> n - 1
+end
 
 (*
-  compose object like:
+  compose and export object like:
     { "value": 42 }
 *)
 let store =
-  let open M.Object in
-  M.Store.create @@ make @@
-    ("value", value) @+
+  let open Ripple.Object in
+  Ripple.Store.to_js @@ make @@
+    ("value" +> value ()) @+
     nil
 ```
 
