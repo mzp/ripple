@@ -1,9 +1,8 @@
 open Bs_mocha
 open Ripple_store
-open Ripple_primitive
 open Ripple_object
 
-let counter () = int 0 (fun n ->
+let counter () = Ripple_primitive.int 0 (fun n ->
   function
     | `Inc -> n + 1
     | `Dec -> n - 1)
