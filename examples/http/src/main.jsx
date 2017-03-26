@@ -3,7 +3,6 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {render} from "react-dom";
 import {reducer, jsonify} from "reducer";
-import Counter from "./components/Counter";
 
 window.onload = () => {
   const mountNode = document.getElementById("js");
@@ -16,7 +15,7 @@ window.onload = () => {
 
     render(
         <Provider store={store}>
-          <Counter />
+          <div />
         </Provider>, mountNode);
   }
 };
