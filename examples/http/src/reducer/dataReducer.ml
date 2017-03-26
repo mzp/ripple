@@ -1,4 +1,4 @@
 let make () =
-  Ripple.Primitive.make Obj.magic Js.null (fun _ -> function
-    | `Start -> Js.null
+  Ripple.Primitive.json Ripple.Json.null (fun _ -> function
+    | `Start -> Ripple.Json.null
     | `Fetch x -> x)
