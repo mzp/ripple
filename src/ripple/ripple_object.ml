@@ -1,28 +1,28 @@
 type ('a, 'b) t = {
-  state : 'b;
-  reducer: 'b -> 'a -> 'b;
+  initial: 'b;
+  f: 'b -> 'a -> 'b;
   dictify: 'b -> Js.Json.t Js.Dict.t
 }
 
-let make { state; reducer; dictify } =
+let make { initial; f; dictify } =
   {
-    Ripple_store.state;
-    reducer;
+    Ripple_reducer.initial;
+    f;
     jsonify = (fun x -> Ripple_json.object_ @@ dictify x)
   }
 
 let nil = {
-  state=();
-  reducer=(fun () _ -> ());
+  initial=();
+  f=(fun () _ -> ());
   dictify=Js.Dict.empty
 }
 
 let (@+) (key, s1) s2 = {
-  state=(s1.Ripple_store.state, s2.state);
-  reducer=(fun (x, y) action -> (s1.Ripple_store.reducer x action, s2.reducer y action));
+  initial=(s1.Ripple_reducer.initial, s2.initial);
+  f=(fun (x, y) action -> (s1.Ripple_reducer.f x action, s2.f y action));
   dictify=(fun (x, y) -> begin
         let dict = s2.dictify y in
-        let () = Js.Dict.set dict key @@ s1.Ripple_store.jsonify x in
+        let () = Js.Dict.set dict key @@ s1.Ripple_reducer.jsonify x in
         dict
       end)
 }

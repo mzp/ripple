@@ -24,5 +24,5 @@ let reducer state = function
 let jsonify { id; text; complete } =
   Ripple.Json.jsonify [%bs.obj { id; text; complete } ]
 
-let store () =
+let make () =
   Ripple.Primitive.make jsonify empty reducer

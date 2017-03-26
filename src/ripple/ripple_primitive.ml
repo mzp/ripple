@@ -1,9 +1,9 @@
-type ('a, 'b) t = 'b -> ('b -> 'a -> 'b) -> ('a, 'b) Ripple_store.t
+type ('a, 'b) t = 'b -> ('b -> 'a -> 'b) -> ('a, 'b) Ripple_reducer.t
 
-let make jsonify state reducer = {
-  Ripple_store.jsonify;
-  state;
-  reducer
+let make jsonify initial f = {
+  Ripple_reducer.jsonify;
+  initial;
+  f
 }
 
 let int x f = make (fun n -> Ripple_json.int n) x f

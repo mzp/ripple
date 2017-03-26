@@ -1,8 +1,8 @@
 import React from "react";
-import {connect} from "ripple";
-import {add} from "reducer";
+import {connect} from "react-redux";
+import {jsonify, createAction, add} from "reducer";
 
-@connect
+@connect(jsonify)
 export default class extends React.Component {
   render() {
     return (
@@ -14,7 +14,7 @@ export default class extends React.Component {
   }
 
   add() {
-    this.props.dispatch(add(this.input.value));
+    this.props.dispatch(createAction(add(this.input.value)));
     this.input.value = "";
   }
 }
