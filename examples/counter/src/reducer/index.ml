@@ -2,4 +2,4 @@
 include Action
 
 (* export store *)
-let store = Ripple.Store.to_js (Store.store ())
+include (val Ripple.Redux.to_redux (Reducer.make ()) : Ripple.Redux.Export)
