@@ -6,4 +6,5 @@ module Redux = Ripple_redux
 
 module Json = struct
   external jsonify : 'a Js.t -> Js.Json.t = "%identity"
+  include Ripple_json
 end
