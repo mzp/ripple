@@ -1,0 +1,14 @@
+{
+  "name" : "ripple-example-counter",
+  "version": "0.1.0",
+  "sources" : {
+    "dir" :  "src/reducer"
+  },
+  "bs-dependencies": [
+    "ripple"
+  ],
+  "bsc-flags": [
+    "-ppx \"$$($$(npm bin)/ppx ppx ppx_variants_conv)\"",
+    "-I \"$$($$(npm bin)/ppx flag variantslib)\""
+  ]
+}
