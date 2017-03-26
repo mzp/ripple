@@ -16,37 +16,44 @@ Define reducer/action creator at ML-style.
 
 ```ocaml
 (* define action *)
-module M = Ripple.Store(struct
-  type t = [ `Inc | `Dec ]
-end)
+type t = [
+  `Inc
+| `Dec ] [@@deriving variants]
 
 (* define reducer *)
-let value () = Ripple.Primitive.int 0 begin fun n -> function
-  | `Inc -> n + 1
-  | `Dec -> n - 1
+let valueReducer () =
+  Ripple.Primitive.int 0 begin fun n -> function
+    | `Inc -> n + 1
+    | `Dec -> n - 1
 end
 
 (*
   compose and export object like:
     { "value": 42 }
 *)
-let store =
+let reducer () =
   let open Ripple.Object in
-  Ripple.Store.to_js @@ make @@
-    ("value" +> value ()) @+
+  make @@
+    ("value" +> valueReducer ()) @+
     nil
+
+(* export reducers for reducx *)
+include (val Ripple.Redux.to_redux (reducer ()) : Ripple.Redux.Export)
 ```
 
-Provide store to all components
+Provide store to all components using [react-redux](https://github.com/reactjs/react-redux):
 
 ```js
 import React from "react";
 import {render} from "react-dom";
-import {store} from "reducer";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {reducer} from "reducer";
 import App from "./components/App";
 
 window.onload = () => {
   const mountNode = document.getElementById("js");
+  const store = createStore(reducer);
 
   render(
     <Provider store={store}>
@@ -59,10 +66,10 @@ And connect components by `@connect`:
 
 ```js
 import React from "react";
-import {connect} from "ripple";
-import {inc} from "reducer";
+import {connect} from "react-redux";
+import {jsonify, createAction, inc} from "reducer";
 
-@connect
+@connect(jsonify)
 export default class extends React.Component {
   render() {
     const {value} = this.props;
@@ -70,7 +77,7 @@ export default class extends React.Component {
   }
 
   inc() {
-    this.props.dispatch(inc);
+    this.props.dispatch(createAction(inc));
   }
 }
 ```
