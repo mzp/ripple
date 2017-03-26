@@ -1,4 +1,4 @@
 type t = [
-  | `Inc
-  | `Dec
-  | `Set of int ] [@@deriving variants]
+  | `Start
+  | `Fetch of Js.Json.t
+] [@@deriving variants]
