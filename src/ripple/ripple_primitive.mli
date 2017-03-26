@@ -1,4 +1,4 @@
-type ('a, 'b) t = 'b -> ('b -> 'a -> 'b) -> ('a, 'b) Ripple_store.t
+type ('a, 'b) t = 'b -> ('b -> 'a -> 'b) -> ('a, 'b) Ripple_reducer.t
 
 val int : ('a, int) t
 val number : ('a, float) t

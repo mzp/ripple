@@ -6,20 +6,9 @@
     "ppx": "./bin/ppx"
   },
   "scripts": {
-    "build:bs": "bsb",
-    "build:js": "webpack",
+    "build": "bsb",
     "test": "bsb && mocha lib/js/test/*.js lib/js/test/ripple/*.js",
-    "postinstall": "webpack && bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
-  },
-  "dependencies": {
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-class-properties": "^6.19.0",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
-    "react": "^15.4.2",
-    "webpack": "2.2.0"
+    "postinstall": "bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "devDependencies": {
     "mocha": "^2.5.3"
