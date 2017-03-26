@@ -24,6 +24,7 @@ steps:
         for path in /codefresh/volume/ripple/examples/*; do
           echo $path
           cd $path
+          rm -rf node_modules
           npm install
           npm run build
         done
