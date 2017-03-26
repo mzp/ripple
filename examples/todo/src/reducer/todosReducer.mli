@@ -1,3 +1,3 @@
-type t = Todo.t list
+type t = TodoReducer.t list
 
 val make : unit -> (Action.t, t) Ripple.Reducer.t

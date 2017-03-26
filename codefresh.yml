@@ -10,9 +10,23 @@ steps:
     title: Build script
     image: '${{DockerImage}}'
     commands:
-      - npm install
-      - npm link bs-platform
-      - npm run test
+      - bash /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        set -e
+        source ~/.profile
+        cd /ripple
+        npm install
+        npm link bs-platform
+        npm run test
+        for path in /codefresh/volume/ripple/examples/*; do
+          echo $path
+          cd $path
+          npm install
+          npm run build
+        done
     on_success:
       metadata:
         set:
