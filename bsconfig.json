@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "sources" : [
     { "dir" :  "src/ripple" },
-    { "dir" :  "test" },
-    { "dir" :  "test/ripple" }
+    { "dir": "__tests__/ripple", "type": "dev" }
   ],
-  "generate-merlin" : true
+  "generate-merlin" : true,
+  "bs-dependencies": ["bs-jest"]
 }

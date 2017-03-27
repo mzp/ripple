@@ -7,10 +7,13 @@
   },
   "scripts": {
     "build": "bsb",
-    "test": "bsb && mocha lib/js/test/*.js lib/js/test/ripple/*.js",
+    "test": "bsb && jest",
     "postinstall": "bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "devDependencies": {
     "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "bs-jest": "github:buckletypes/bs-jest"
   }
 }
