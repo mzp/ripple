@@ -6,8 +6,8 @@
     "ppx": "./bin/ppx"
   },
   "scripts": {
-    "build": "bsb",
-    "test": "bsb && jest",
+    "build": "bsb -make-world",
+    "test": "npm run build && jest",
     "postinstall": "bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "devDependencies": {
