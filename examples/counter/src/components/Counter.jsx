@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import {jsonify, createAction, inc, dec, set} from "reducer";
+import {jsonify, bindAction, inc, dec, set} from "reducer";
 
-@connect(jsonify)
+@connect(jsonify, bindAction)
 export default class extends React.Component {
   render() {
     const {value, count} = this.props;
@@ -20,14 +20,14 @@ export default class extends React.Component {
   }
 
   inc() {
-    this.props.dispatch(createAction(inc));
+    this.props.dispatch(inc);
   }
 
   dec() {
-    this.props.dispatch(createAction(dec));
+    this.props.dispatch(dec);
   }
 
   reset() {
-    this.props.dispatch(createAction(set(0)));
+    this.props.dispatch(set(0));
   }
 }

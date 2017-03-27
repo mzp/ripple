@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {jsonify, createAction, toggle} from "reducer";
+import {jsonify, bindAction, toggle} from "reducer";
 
 
-@connect(jsonify)
+@connect(jsonify, bindAction)
 export default class extends React.Component {
   render() {
     const { todos } = this.props;
@@ -19,6 +19,6 @@ export default class extends React.Component {
   }
 
   handleClick(todo) {
-    this.props.dispatch(createAction(toggle(todo.id)));
+    this.props.dispatch(toggle(todo.id));
   }
 }

@@ -1,7 +1,7 @@
-let fetch (dispatch : Ripple.Redux.action -> unit) url =
+let fetch dispatch url =
   let () =
-    dispatch (Ripple.Redux.create_action `Start)
+    dispatch `Start
   in
     Axios.get url Js.null
-    |> Bs_promise.then_ (fun response -> dispatch @@ Ripple.Redux.create_action @@ `Fetch response##data)
+    |> Bs_promise.then_ (fun response -> dispatch @@ `Fetch response##data)
     |> ignore

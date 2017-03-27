@@ -7,6 +7,7 @@ external toState : 'a -> state = "%identity"
 module type Export = sig
   val reducer : state -> action -> state
   val jsonify : state -> Js.Json.t
+  val bindAction : (action -> unit) -> < dispatch : 'a -> unit > Js.t
   val createAction : 'a -> action
 end
 
@@ -21,6 +22,9 @@ let to_redux base : (module Export) = (module struct
 
     let jsonify x =
       Ripple_reducer.jsonify base @@ fromState x
+
+    let bindAction dispatch =
+      [%bs.obj { dispatch = (fun x -> dispatch (create_action x)) }]
 
     let createAction =
       create_action
