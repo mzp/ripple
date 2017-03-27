@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {jsonify, createAction, add} from "reducer";
+import {jsonify, bindAction, add} from "reducer";
 
 @connect(jsonify)
 export default class extends React.Component {
@@ -14,7 +14,7 @@ export default class extends React.Component {
   }
 
   add() {
-    this.props.dispatch(createAction(add(this.input.value)));
+    this.props.dispatch(add(this.input.value));
     this.input.value = "";
   }
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {jsonify, createAction, inc, dec, set} from "reducer";
+import {jsonify, bindAction} from "reducer";
 import {fetch} from "reducer/dispatcher";
 
-@connect(jsonify)
+@connect(jsonify, bindAction)
 export default class extends React.Component {
   render() {
     const { ready, data } = this.props;

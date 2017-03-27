@@ -4,6 +4,7 @@ type state
 module type Export = sig
   val reducer : state -> action -> state
   val jsonify : state -> Js.Json.t
+  val bindAction : (action -> unit)  -> < dispatch : 'a -> unit > Js.t
   val createAction : 'a -> action
 end
 
