@@ -1,4 +1,5 @@
-open Bs_mocha
+open Jest
+open Expect
 open Ripple_reducer
 open Ripple_object
 
@@ -12,8 +13,6 @@ let history () = Ripple_array.make [] Ripple_json.string (fun xs ->
     | `Inc -> "inc" :: xs
     | `Dec -> "dec" :: xs)
 
-
-
 let () =
   let obj_ =
     make @@ begin
@@ -22,12 +21,9 @@ let () =
       nil
     end
   in
-  from_pair_suites __FILE__ [
-    ("jsonify", fun () ->
-        Eq (Js.Json.parse "{ \"value\": 0, \"history\": [] }",
-            jsonify obj_ (initial obj_)));
-    ("dispatch", fun () ->
-        Eq (Js.Json.parse "{ \"value\": 1, \"history\": [\"inc\"] }",
-            dispatch obj_ (initial obj_) `Inc
-            |> jsonify obj_))
-  ]
+  test "jsonify" (fun _ ->
+      expect (jsonify obj_ (initial obj_))
+      |> toEqual (Js.Json.parse "{ \"value\": 0, \"history\": [] }"));
+  test "dispatch" (fun _ ->
+      expect (dispatch obj_ (initial obj_) `Inc |> jsonify obj_)
+      |> toEqual (Js.Json.parse "{ \"value\": 1, \"history\": [\"inc\"] }"))
