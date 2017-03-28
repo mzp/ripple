@@ -20,6 +20,7 @@ steps:
         cd /ripple
         npm install
         npm link bs-platform
+        rm -rf lib
         npm run test
         for path in /codefresh/volume/ripple/examples/*; do
           echo $path
