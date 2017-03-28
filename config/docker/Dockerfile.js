@@ -1,4 +1,4 @@
-FROM mzpi/bucklescript
+FROM mzpi/bucklescript:1.6.0
 
 WORKDIR /home/opam
 
