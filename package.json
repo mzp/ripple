@@ -8,7 +8,7 @@
   "scripts": {
     "build": "bsb -make-world",
     "test": "npm run build && jest",
-    "postinstall": "bsb && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
+    "postinstall": "bsb -make-world && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "devDependencies": {
     "mocha": "^2.5.3"
