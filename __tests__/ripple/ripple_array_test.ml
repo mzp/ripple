@@ -6,7 +6,7 @@ open Ripple_array
 type t = [ `Cons of int | `Tail ]
 
 let reducer1 : (t, 'a) Ripple_reducer.t =
-  make [] Ripple_json.int (fun xs -> function
+  make [] (fun n -> Js.Json.number @@ float_of_int n) (fun xs -> function
     | `Cons x -> x :: xs
     | `Tail -> List.tl xs)
 
