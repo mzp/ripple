@@ -1,4 +1,4 @@
 let make () =
-  Ripple.Primitive.json Ripple.Json.null (fun _ -> function
-    | `Start -> Ripple.Json.null
+  Ripple.Primitive.json Js.Json.null (fun _ -> function
+    | `Start -> Js.Json.null
     | `Fetch x -> x)

@@ -8,7 +8,7 @@ let reducer = {
     function
       | `Add m -> n + m
       | `Sub m -> n - m);
-  jsonify=(fun n -> Ripple_json.number @@ float_of_int n)
+  jsonify=(fun n -> Js.Json.number @@ float_of_int n)
 }
 
 let _ =
@@ -17,4 +17,4 @@ let _ =
   test "dispatch" (fun _ ->
       expect (dispatch reducer 42 (`Sub 2)) |> toBe 40);
   test "jsonify" (fun _ ->
-      expect (jsonify reducer 42) |> toBe (Ripple_json.number 42.))
+      expect (jsonify reducer 42) |> toBe (Js.Json.number 42.))

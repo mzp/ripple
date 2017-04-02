@@ -8,7 +8,7 @@ let make { initial; f; dictify } =
   {
     Ripple_reducer.initial;
     f;
-    jsonify = (fun x -> Ripple_json.object_ @@ dictify x)
+    jsonify = (fun x -> Js.Json.object_ @@ dictify x)
   }
 
 let nil = {

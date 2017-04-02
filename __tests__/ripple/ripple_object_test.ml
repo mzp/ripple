@@ -8,7 +8,7 @@ let counter () = Ripple_primitive.int 0 (fun n ->
     | `Inc -> n + 1
     | `Dec -> n - 1)
 
-let history () = Ripple_array.make [] Ripple_json.string (fun xs ->
+let history () = Ripple_array.make [] Js.Json.string (fun xs ->
     function
     | `Inc -> "inc" :: xs
     | `Dec -> "dec" :: xs)
