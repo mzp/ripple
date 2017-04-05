@@ -28,3 +28,17 @@ let (@+) (key, s1) s2 = {
 }
 
 let (+>) x y = (x, y)
+
+let makeObject jsonify xs =
+  let dict =
+    Js.Dict.empty () in
+  let () =
+    List.iter (fun (k,v) -> Js.Dict.set dict k @@ jsonify v) xs in
+  Js.Json.object_ dict
+
+let lift { Ripple_reducer.jsonify; f } initial g = {
+  Ripple_reducer.initial;
+  jsonify = makeObject jsonify;
+  f = fun xs action ->
+    g xs action |> List.map (fun (k,x)  -> (k, f x action))
+}
