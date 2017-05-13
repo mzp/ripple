@@ -6,5 +6,5 @@
     { "dir": "__tests__/ripple", "type": "dev" }
   ],
   "generate-merlin" : true,
-  "bs-dependencies": ["bs-jest"]
+  "bs-dependencies": ["bs-jest", "bs-lwt"]
 }

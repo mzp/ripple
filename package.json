@@ -14,6 +14,7 @@
     "mocha": "^2.5.3"
   },
   "dependencies": {
-    "bs-jest": "github:buckletypes/bs-jest"
+    "bs-jest": "github:buckletypes/bs-jest",
+    "bs-lwt": "git+https://github.com/mzp/bs-lwt.git"
   }
 }
