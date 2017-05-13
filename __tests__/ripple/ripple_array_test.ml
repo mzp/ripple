@@ -25,11 +25,11 @@ let _ =
       test "dispatch" (fun _ ->
           expect (dispatch reducer1 [] (`Cons 1)) |> toEqual [1]);
       test "jsonify" (fun _ ->
-          expect (jsonify reducer1 [1]) |> toEqual (Js.Json.parse "[1]")));
+          expect (jsonify reducer1 [1]) |> toEqual (Js.Json.parseExn "[1]")));
   describe "lift" (fun _ ->
       test "initial" (fun _ ->
           expect (initial reducer2) |> toEqual [0; 1; 2]);
       test "dispatch" (fun _ ->
           expect (dispatch reducer2 [] (`Add 1)) |> toEqual [1]);
       test "jsonify" (fun _ ->
-          expect (jsonify reducer2 [0; 1; 2]) |> toEqual (Js.Json.parse "[0, 1, 2]")))
+          expect (jsonify reducer2 [0; 1; 2]) |> toEqual (Js.Json.parseExn "[0, 1, 2]")))
