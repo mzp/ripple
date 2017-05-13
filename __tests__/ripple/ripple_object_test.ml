@@ -32,14 +32,14 @@ let () =
     in
     test "jsonify" (fun _ ->
         expect (jsonify obj_ (initial obj_))
-        |> toEqual (Js.Json.parse "{ \"value\": 0, \"history\": [] }"));
+        |> toEqual (Js.Json.parseExn "{ \"value\": 0, \"history\": [] }"));
     test "dispatch" (fun _ ->
         expect (dispatch obj_ (initial obj_) `Inc |> jsonify obj_)
-        |> toEqual (Js.Json.parse "{ \"value\": 1, \"history\": [\"inc\"] }")));
+        |> toEqual (Js.Json.parseExn "{ \"value\": 1, \"history\": [\"inc\"] }")));
   describe "lift" (fun _ ->
     test "jsonify" (fun _ ->
         expect (jsonify keyed_object (initial keyed_object))
-        |> toEqual (Js.Json.parse "{}"));
+        |> toEqual (Js.Json.parseExn "{}"));
     test "dispatch" (fun _ ->
         expect (dispatch keyed_object (initial keyed_object) `Inc |> jsonify keyed_object)
-        |> toEqual (Js.Json.parse "{ \"0\": 1 }")))
+        |> toEqual (Js.Json.parseExn "{ \"0\": 1 }")))
