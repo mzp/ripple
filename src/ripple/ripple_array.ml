@@ -1,5 +1,5 @@
 let makeArray f xs =
-  Js.Json.array_ @@ Array.of_list @@ List.map f xs
+  Js.Json.array @@ Array.of_list @@ List.map f xs
 
 let make initial jsonify f = {
   Ripple_reducer.initial;
