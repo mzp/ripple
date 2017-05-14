@@ -26,19 +26,19 @@ module Task = struct
     let open Lwt in
     f x >>= (fun _ -> loop f x)
 
-  let invoke context task =
-    ignore @@ task context
+  let create dispatch task =
+    let channel =
+      Lwt_mvar.create_empty () in
+    let () =
+      ignore @@ task { Context.dispatch; channel } in
+    channel
 end
 
 module Middleware = struct
   let create tasks dispatch =
-    let channel =
-      Lwt_mvar.create_empty () in
-    let context = {
-      Context.dispatch; channel
-    } in
-    let () =
-      List.iter (Task.invoke context) tasks in
+    let channels  =
+      List.map (Task.create dispatch) tasks in
     fun action ->
-      ignore @@ Lwt_mvar.put channel action
+      ListLabels.iter channels ~f:(fun channel ->
+        ignore @@ Lwt_mvar.put channel action)
 end
