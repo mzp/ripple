@@ -3,6 +3,7 @@ module Primitive = Ripple_primitive
 module Object = Ripple_object
 module Array = Ripple_array
 module Redux = Ripple_redux
+module Task = Ripple_task
 
 module Json = struct
   external jsonify : 'a Js.t -> Js.Json.t = "%identity"
