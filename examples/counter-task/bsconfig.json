@@ -1,0 +1,15 @@
+{
+  "name" : "ripple-example-counter-task",
+  "version": "0.1.0",
+  "sources" : {
+    "dir" :  "src/reducer"
+  },
+  "bs-dependencies": [
+    "ripple",
+    "bs-lwt"
+  ],
+  "bsc-flags": [
+    "-ppx \"$$($$(npm bin)/ppx ppx ppx_variants_conv)\"",
+    "-I \"$$($$(npm bin)/ppx flag variantslib)\""
+  ]
+}
