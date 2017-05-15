@@ -8,15 +8,12 @@ type action =
 
 (* task definition *)
 let ping context =
-  let open Lwt in
   let open Ripple_task.Context in
-  take context
-  >>= begin function
-    | Ping ->
-      put context Pong
-    | Pong ->
-      Lwt.return ()
-  end
+  take_if context ~f:(
+    function | Ping -> Some ()
+             | _ -> None)
+  >?= (fun () ->
+      put context Pong)
 
 (* simulate redux middleware *)
 let last_action : action option ref =
@@ -25,7 +22,9 @@ let last_action : action option ref =
 let dispatch action = last_action := Some action
 
 let middleware : action -> unit =
-  Ripple_task.Middleware.create [Ripple_task.Task.loop ping] dispatch
+  Ripple_task.Middleware.create [
+    Ripple_task.Task.loop @@ Ripple_task.Task.ignore ping
+  ] dispatch
 
 let _ =
   describe "task" (fun _ ->
