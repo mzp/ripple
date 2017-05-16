@@ -17,14 +17,25 @@ module Context = struct
       Js.Promise.then_ (fun result -> Js.Promise.resolve @@ Lwt_condition.signal cond result) promise
       |> ignore in
     Lwt_condition.wait cond
+
+  let take_if ~f context =
+    let open Lwt.Infix in
+    take context
+    >|= f
+    >>= (function
+        | Some x -> Lwt_result.return x
+        | None  -> Lwt_result.fail ())
+
+  module Infix = struct
+    include Lwt.Infix
+    let (>?=) = Lwt_result.bind_lwt
+  end
+
+  include Infix
 end
 
 module Task = struct
   type 'a t = 'a Context.t -> unit Lwt.t
-
-  let rec loop f x =
-    let open Lwt in
-    f x >>= (fun _ -> loop f x)
 
   let create dispatch task =
     let channel =
@@ -32,6 +43,13 @@ module Task = struct
     let () =
       ignore @@ task { Context.dispatch; channel } in
     channel
+
+  let rec loop f x =
+    let open Lwt in
+    f x >>= (fun _ -> loop f x)
+
+  let ignore f context =
+    Lwt.map Pervasives.ignore (f context)
 end
 
 module Middleware = struct
