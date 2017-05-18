@@ -6,7 +6,7 @@ module Context : sig
   val take : 'a t -> 'a Lwt.t
   val take_if : f:('a -> 'b option) -> 'a t -> ('b, unit) Lwt_result.t
   val put : 'a t -> 'a -> unit Lwt.t
-  val call : 'a Js.Promise.t -> 'a Lwt.t
+  val call : 'a Js.Promise.t -> ('a, Js.Promise.error) Lwt_result.t
 
   module Infix : sig
     include module type of Lwt.Infix

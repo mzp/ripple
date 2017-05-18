@@ -13,8 +13,12 @@ module Context = struct
   let call promise =
     let cond =
       Lwt_condition.create () in
+    let signal x =
+      Js.Promise.resolve @@ Lwt_condition.signal cond x in
     let () =
-      Js.Promise.then_ (fun result -> Js.Promise.resolve @@ Lwt_condition.signal cond result) promise
+      promise
+      |> Js.Promise.then_ (fun result -> signal (Result.Ok result))
+      |> Js.Promise.catch (fun error -> signal (Result.Error error))
       |> ignore in
     Lwt_condition.wait cond
 
