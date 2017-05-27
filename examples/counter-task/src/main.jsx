@@ -2,7 +2,7 @@ import React from "react";
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import {render} from "react-dom";
-import {reducer, jsonify, taskMiddleware, tasks} from "reducer";
+import {reducer, jsonify, taskMiddleware, tasks, initialState} from "reducer";
 import Counter from "./components/Counter";
 
 window.onload = () => {
@@ -17,9 +17,9 @@ window.onload = () => {
       }) : compose;
 
     const store = createStore(reducer,
+      initialState,
       composeEnhancers(applyMiddleware(taskMiddleware)));
 
-    console.log('hello');
     render(
         <Provider store={store}>
           <Counter />
