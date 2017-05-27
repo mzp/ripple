@@ -1,11 +1,13 @@
 type action
 type state
 external payload: action -> 'a Js.undefined = "payload" [@@bs.get]
-external fromState : state -> 'a = "%identity"
-external toState : 'a -> state = "%identity"
+external type_: action -> 'a Js.undefined = "type" [@@bs.get]
+external of_state: state -> 'a = "%identity"
+external to_state: 'a -> state = "%identity"
 
-module type Export = sig
+module type M = sig
   val reducer : state -> action -> state
+  val initialState: state
   val jsonify : state -> Js.Json.t
   val bindAction : (action -> unit) -> < dispatch : 'a -> unit > Js.t
   val createAction : 'a -> action
@@ -15,14 +17,24 @@ end
 let create_action payload : action =
   Obj.magic [%bs.obj { _type="ripple"; payload } ]
 
-let to_redux ?(tasks=[]) base : (module Export) = (module struct
+let export ?(tasks=[]) base value : (module M) = (
+  module struct
     let reducer state action =
-      toState @@ match Js.Undefined.to_opt @@ payload action with
-      | Some x -> Ripple_reducer.dispatch base (fromState state) x
-      | None -> Ripple_reducer.initial base
+      let state' =
+        of_state state in
+      let action' =
+        match Js.Undefined.to_opt (type_ action), Js.Undefined.to_opt (payload action) with
+        | Some "ripple", Some payload -> payload
+        | Some "@@INIT", _ -> `Init
+        | Some x, _ -> failwith (Printf.sprintf "Unknown action: %s" x)
+        | _, _ -> failwith "Required field is missing" in
+      to_state @@ Ripple_reducer.apply base state' action'
+
+    let initialState =
+      to_state value
 
     let jsonify x =
-      Ripple_reducer.jsonify base @@ fromState x
+      Ripple_reducer.jsonify base @@ of_state x
 
     let bindAction dispatch =
       [%bs.obj { dispatch = (fun x -> dispatch (create_action x)) }]
