@@ -2,7 +2,7 @@ import React from "react";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {render} from "react-dom";
-import {reducer, jsonify} from "reducer";
+import {reducer, jsonify, initialState} from "reducer";
 
 import App from "./components/App";
 
@@ -11,6 +11,7 @@ window.onload = () => {
 
   if (mountNode) {
     const store = createStore(reducer,
+      initialState,
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
         stateSanitizer: jsonify
       }));

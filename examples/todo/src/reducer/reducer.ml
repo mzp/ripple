@@ -1,5 +1,5 @@
 let make () =
   let open Ripple.Object in
-  make @@
-    ("todos", TodosReducer.make ())
-    @+ nil
+  builder (fun t ->
+      t
+      |> field "todos" (Reducer_todos.make ()))
