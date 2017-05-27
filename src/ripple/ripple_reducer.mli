@@ -1,9 +1,6 @@
-type ('a, 'b) t = {
-  f: 'b -> 'a -> 'b;
-  initial : 'b;
-  jsonify: 'b -> Js.Json.t
-}
+type ('a, 'b) t
 
-val initial : ('a, 'b) t -> 'b
+val apply : ('a, 'b) t -> 'b ->'a -> 'b
 val jsonify : ('a, 'b) t -> 'b -> Js.Json.t
-val dispatch : ('a, 'b) t -> 'b -> 'a -> 'b
+val make : ('b -> 'a -> 'b) -> ('b -> Js.Json.t) -> ('a, 'b) t
+val map : ('b -> 'a -> 'b) -> ('a, 'b) t -> ('a, 'b) t
