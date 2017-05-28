@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "bsb && webpack"
+    "build": "bsb -make-world && webpack"
   },
   "dependencies": {
     "babel-core": "^6.21.0",
