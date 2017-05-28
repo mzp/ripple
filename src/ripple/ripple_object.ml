@@ -28,6 +28,9 @@ let reducer { redux; dictify } =
     Js.Json.object_ @@ dictify x in
   Ripple_reducer.make redux jsonify
 
+let obj_field key (f, x) =
+  field key (Ripple_lift.option x f)
+
 let builder f =
   let { value } as obj =
     f nil in
