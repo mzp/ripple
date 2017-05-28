@@ -11,9 +11,10 @@
     "postinstall": "bsb -make-world && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
   },
   "devDependencies": {
-    "bs-jest": "github:buckletypes/bs-jest#0a7770f2b5ef1cb21b6de45d11d1313ed354ff27"
+    "bs-jest": "github:buckletypes/bs-jest"
   },
   "dependencies": {
-    "bs-lwt": "git+https://github.com/mzp/bs-lwt.git"
+    "bs-lwt": "git+https://github.com/mzp/bs-lwt.git",
+    "bs-platform": "1.7.4"
   }
 }
