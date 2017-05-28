@@ -7,12 +7,10 @@
   },
   "scripts": {
     "build": "bsb -make-world",
-    "test": "npm run build && jest",
-    "postinstall": "bsb -make-world && mkdir -p lib/ocaml && cp -r lib/bs/src/ripple/* lib/ocaml/"
+    "test": "npm run build && jest"
   },
   "dependencies": {
-    "bs-jest": "github:buckletypes/bs-jest",
-    "bs-lwt": "git+https://github.com/mzp/bs-lwt.git",
-    "bs-platform": "1.7.4"
+    "bs-lwt": "github:mzp/bs-lwt",
+    "bs-jest": "github:buckletypes/bs-jest"
   }
 }
