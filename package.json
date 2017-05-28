@@ -10,7 +10,7 @@
     "test": "npm run build && jest"
   },
   "dependencies": {
-    "bs-lwt": "github:mzp/bs-lwt",
-    "bs-jest": "github:buckletypes/bs-jest"
+    "bs-jest": "git+https://github.com/buckletypes/bs-jest.git",
+    "bs-lwt": "git+https://github.com/mzp/bs-lwt.git"
   }
 }
