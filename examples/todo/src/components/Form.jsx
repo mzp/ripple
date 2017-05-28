@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {jsonify, bindAction, add} from "reducer";
 
-@connect(jsonify)
+@connect(jsonify, bindAction)
 export default class extends React.Component {
   render() {
     return (

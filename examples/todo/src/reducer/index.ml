@@ -2,4 +2,9 @@
 include Action
 
 (* export store *)
-include (val Ripple.Redux.to_redux (Reducer.make ()) : Ripple.Redux.Export)
+let m =
+  let (reducer, value) =
+    Reducer.make () in
+  Ripple.Export.export reducer value
+
+include (val m : Ripple.Export.M)

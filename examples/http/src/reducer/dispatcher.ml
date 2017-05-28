@@ -3,5 +3,5 @@ let fetch dispatch url =
     dispatch `Start
   in
     Axios.get url Js.null
-    |> Bs_promise.then_ (fun response -> dispatch @@ `Fetch response##data)
+    |> Js.Promise.then_ (fun response -> Js.Promise.resolve @@ dispatch @@ `Fetch response##data)
     |> ignore

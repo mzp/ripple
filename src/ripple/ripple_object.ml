@@ -1,44 +1,34 @@
 type ('a, 'b) t = {
-  initial: 'b;
-  f: 'b -> 'a -> 'b;
-  dictify: 'b -> Js.Json.t Js.Dict.t
+  redux: 'b -> 'a -> 'b;
+  dictify: 'b -> Js.Json.t Js.Dict.t;
+  value: 'b
 }
-
-let make { initial; f; dictify } =
-  {
-    Ripple_reducer.initial;
-    f;
-    jsonify = (fun x -> Js.Json.object_ @@ dictify x)
-  }
 
 let nil = {
-  initial=();
-  f=(fun () _ -> ());
-  dictify=Js.Dict.empty
+  redux=(fun () _ -> ());
+  dictify=Js.Dict.empty;
+  value=()
 }
 
-let (@+) (key, s1) s2 = {
-  initial=(s1.Ripple_reducer.initial, s2.initial);
-  f=(fun (x, y) action -> (s1.Ripple_reducer.f x action, s2.f y action));
-  dictify=(fun (x, y) -> begin
-        let dict = s2.dictify y in
-        let () = Js.Dict.set dict key @@ s1.Ripple_reducer.jsonify x in
-        dict
-      end)
-}
+let field key r {redux; dictify; value} =
+  let redux (x, y) action =
+    (Ripple_reducer.apply r x action, redux y action) in
+  let dictify (x, y) =
+    let dict =
+      dictify y in
+    let () =
+      Js.Dict.set dict key @@ Ripple_reducer.jsonify r x in
+    dict in
+  let value =
+    (None, value) in
+  { redux; dictify; value}
 
-let (+>) x y = (x, y)
+let reducer { redux; dictify } =
+  let jsonify x =
+    Js.Json.object_ @@ dictify x in
+  Ripple_reducer.make redux jsonify
 
-let makeObject jsonify xs =
-  let dict =
-    Js.Dict.empty () in
-  let () =
-    List.iter (fun (k,v) -> Js.Dict.set dict k @@ jsonify v) xs in
-  Js.Json.object_ dict
-
-let lift { Ripple_reducer.jsonify; f } initial g = {
-  Ripple_reducer.initial;
-  jsonify = makeObject jsonify;
-  f = fun xs action ->
-    g xs action |> List.map (fun (k,x)  -> (k, f x action))
-}
+let builder f =
+  let { value } as obj =
+    f nil in
+  (reducer obj, value)

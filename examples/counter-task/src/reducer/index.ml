@@ -4,4 +4,9 @@ include Action
 (* export store *)
 let tasks = [ Task_delayed.run ]
 
-include (val Ripple.Redux.to_redux ~tasks (Reducer.make ()) : Ripple.Redux.Export)
+let m =
+  let (reducer, value) =
+    Reducer.make () in
+  Ripple.Export.export ~tasks reducer value
+
+include (val m : Ripple.Export.M)

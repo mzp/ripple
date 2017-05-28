@@ -2,7 +2,7 @@ import React from "react";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {render} from "react-dom";
-import {reducer, jsonify} from "reducer";
+import {reducer, initialState, jsonify} from "reducer";
 import Counter from "./components/Counter";
 
 window.onload = () => {
@@ -10,6 +10,7 @@ window.onload = () => {
 
   if (mountNode) {
     const store = createStore(reducer,
+      initialState,
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
         stateSanitizer: jsonify
       }));

@@ -1,6 +1,6 @@
 let make () =
   let open Ripple.Object in
-  make @@
-    "ready" +> ReadyReducer.make () @+
-    "data" +> DataReducer.make () @+
-    nil
+  builder (fun t ->
+    t
+    |> field "ready" (Reducer_ready.make ())
+    |> field "data" (Reducer_data.make ()))

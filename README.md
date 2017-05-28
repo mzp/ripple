@@ -22,10 +22,11 @@ type t = [
 
 (* define reducer *)
 let valueReducer () =
-  Ripple.Primitive.int 0 begin fun n -> function
+  Ripple.Value.int begin fun n -> function
     | `Inc -> n + 1
     | `Dec -> n - 1
-end
+  end
+  |> Ripple.Lift.option 0
 
 (*
   compose and export object like:
@@ -33,12 +34,17 @@ end
 *)
 let reducer () =
   let open Ripple.Object in
-  make @@
-    ("value" +> valueReducer ()) @+
-    nil
+  builder (fun t ->
+      t
+      |> field "value" (valueReducer ()))
 
-(* export reducers for reducx *)
-include (val Ripple.Redux.to_redux (reducer ()) : Ripple.Redux.Export)
+(* export store *)
+let m =
+  let (reducer, value) =
+    Reducer.make () in
+  Ripple.Export.export reducer value
+
+include (val m : Ripple.Export.M)
 ```
 
 Provide store to all components using [react-redux](https://github.com/reactjs/react-redux):
@@ -48,12 +54,12 @@ import React from "react";
 import {render} from "react-dom";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-import {reducer} from "reducer";
+import {reducer, initialState} from "reducer";
 import App from "./components/App";
 
 window.onload = () => {
   const mountNode = document.getElementById("js");
-  const store = createStore(reducer);
+  const store = createStore(reducer, initialState);
 
   render(
     <Provider store={store}>
