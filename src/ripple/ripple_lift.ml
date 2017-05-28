@@ -1,11 +1,11 @@
 let option default reducer =
   let redux state action =
     match state with
-    | None -> Some default
+    | None -> Some (Ripple_reducer.apply reducer default action)
     | Some s -> Some (Ripple_reducer.apply reducer s action)
   in
   let jsonify = function
-    | None -> Js.Json.null
+    | None -> Ripple_reducer.jsonify reducer default
     | Some x -> Ripple_reducer.jsonify reducer x
   in
   Ripple_reducer.make redux jsonify

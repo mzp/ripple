@@ -16,7 +16,7 @@ let _ =
       test "apply" (fun _ ->
           expect (apply reducer None (`Add 0)) |> toEqual (Some 0));
       test "jsonify" (fun _ ->
-          expect (jsonify reducer None) |> toEqual Js.Json.null));
+          expect (jsonify reducer None) |> toEqual (Js.Json.number 0.)));
   describe "array" (fun _ ->
       let reducer =
         array (value ()) in
