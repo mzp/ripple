@@ -9,10 +9,8 @@
     "build": "bsb -make-world",
     "test": "npm run build && jest"
   },
-  "devDependencies": {
-    "bs-jest": "github:buckletypes/bs-jest"
-  },
   "dependencies": {
-    "bs-lwt": "github:mzp/bs-lwt"
+    "bs-lwt": "github:mzp/bs-lwt",
+    "bs-jest": "github:buckletypes/bs-jest"
   }
 }
