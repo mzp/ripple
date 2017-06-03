@@ -26,6 +26,7 @@ let export ?(tasks=[]) base value : (module M) = (
         match Js.Undefined.to_opt (type_ action), Js.Undefined.to_opt (payload action) with
         | Some "ripple", Some payload -> payload
         | Some "@@INIT", _ -> `Init
+        | Some "@@redux/INIT", _ -> `Init
         | Some x, _ -> failwith (Printf.sprintf "Unknown action: %s" x)
         | _, _ -> failwith "Required field is missing" in
       to_state @@ Ripple_reducer.apply base state' action'
